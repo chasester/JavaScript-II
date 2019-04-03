@@ -24,32 +24,58 @@ const items = ['Pencil', 'Notebook', 'yo-yo', 'Gum'];
 
 */
 
+let b = []
+let c = 20;
 
-function getLength(arr, cb) {
+function getLength(arr, cb= (a) => 0) {
   // getLength passes the length of the array into the callback.
+  cb((arr && typeof arr === 'object' && arr.constructor === Array) ? arr.length : 0);
 }
+getLength(items, console.log);
+getLength(b, console.log);
+getLength(c, console.log);
 
-function last(arr, cb) {
+function last(arr, cb= (a) => 0) {
   // last passes the last item of the array into the callback.
+  cb((arr && typeof arr === 'object' && arr.constructor === Array && arr.length) ? arr[arr.length-1] : "");
 }
 
-function sumNums(x, y, cb) {
+last(b, console.log); // empty array example
+last(c, console.log); //non array example;
+last(items, console.log); //proper array
+
+function sumNums(x, y, cb= (a) => 0) {
   // sumNums adds two numbers (x, y) and passes the result to the callback.
+  cb(x+y);
 }
 
-function multiplyNums(x, y, cb) {
+sumNums(10,20,console.log);
+
+function multiplyNums(x, y, cb= (a) => 0) {
   // multiplyNums multiplies two numbers and passes the result to the callback.
+  cb(x*y);
 }
 
-function contains(item, list, cb) {
+multiplyNums(20,10,console.log);
+
+function contains(item, arr, cb= (a) => 0) {
   // contains checks if an item is present inside of the given array/list.
   // Pass true to the callback if it is, otherwise pass false.
+  cb((arr && typeof arr === 'object' && (arr.constructor === Array || arr.constructor === List)) && arr.includes(item) ? true : false);
 }
 
+contains("Gum", c, console.log); //non array example
+contains("Gum", b, console.log); //empty array example
+contains("Hello", items, console.log); //not in array example
+contains("Gum", items, console.log); // is in array example
 /* STRETCH PROBLEM */
 
 function removeDuplicates(array, cb) {
   // removeDuplicates removes all duplicate values from the given array.
   // Pass the duplicate free array to the callback function.
   // Do not mutate the original array.
+  cb([... new Set(array)]);
 }
+let dup = [2,2,2,2,2,2,23,3,3,3,3,3,4,4,4,4,4,4,5,5,5,5,5,5,39]
+removeDuplicates(dup,console.log);
+console.log(dup);
